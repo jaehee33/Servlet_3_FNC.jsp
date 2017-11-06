@@ -151,6 +151,7 @@ h1 {
 			</div>
 			<!-- 제목, 작성자, 내용-->
 			<form action="./noticeList.jsp">
+			<input type="hidden" value="curPage">
 			<select name="kind">
 			<option value="title">제목</option>
 			<option value="writer">작성자</option>
