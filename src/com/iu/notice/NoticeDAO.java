@@ -10,10 +10,11 @@ import com.iu.util.DBConnector;
 public class NoticeDAO {
 
 	//getTotalCount
-	public int getTotalCount() throws Exception{
+	public int getTotalCount(String kind, String search) throws Exception{
 		Connection con=DBConnector.getConnect();
-		String sql="select nvl(count(num),0) from notice";
+		String sql="select nvl(count(num),0) from notice where "+kind+" like ? ";
 		PreparedStatement pre=con.prepareStatement(sql);
+		pre.setString(1, "%"+search+"%");
 		ResultSet rs=pre.executeQuery();
 		rs.next();
 		int totalCount=rs.getInt(1);

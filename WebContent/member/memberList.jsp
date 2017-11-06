@@ -28,7 +28,7 @@
 	ArrayList<MemberDTO> ar = memberDAO.selectList(startRow, lastRow, kind, search);
 	
 	//pageing - totalCount
-	int totalCount = memberDAO.getTotalCount();
+	int totalCount = memberDAO.getTotalCount(kind, search);
 	//totalPage
 	int totalPage = 0;
 	if(totalCount % perPage == 0){
@@ -73,10 +73,6 @@
 <!-- bootstrap 끝-->
 <link href="../css/header.css" rel="stylesheet">
 <style type="text/css">
-*{
-margin: 0;
-padding: 0;
-}
 h1{
 width: 30%;
 margin: 0 auto;
@@ -86,10 +82,13 @@ text-align: center;
 width: 75%;
 margin: 0 auto;
 margin-top: 20px;
+text-align: center;
 }
 .btn{
 float: right;
-
+}
+.button{
+height: 25px;
 }
 </style>
 </head>
@@ -132,7 +131,15 @@ float: right;
 					<%} %>
 				</ul>
 			</div>
-
+			<!-- 제목, 작성자, 내용-->
+			<form action="./memberList.jsp">
+				<select name="kind" class="button">
+					<option value="id">ID</option>
+					<option value="name">NAME</option>
+				</select> 
+				<input type="text" name="search" class="button"> 
+				<input type="submit" value="search" class="button">
+			</form>
 		</article>
 	</section>
 <%@ include file="../temp/footer.jsp"%>
