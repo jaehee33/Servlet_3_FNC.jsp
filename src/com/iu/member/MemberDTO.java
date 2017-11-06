@@ -2,13 +2,13 @@ package com.iu.member;
 
 public class MemberDTO {
 	
-	String id;
-	String password;
-	String name;
-	String email;
-	String phone;
-	int age;
-	String job;
+	private String id;
+	private String password;
+	private String name;
+	private String email;
+	private String phone;
+	private int age;
+	private String job;
 	public String getId() {
 		return id;
 	}
@@ -51,6 +51,4 @@ public class MemberDTO {
 	public void setJob(String job) {
 		this.job = job;
 	}
-	
-
 }

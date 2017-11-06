@@ -27,14 +27,16 @@
 	MemberDAO memberDAO = new MemberDAO();
 	ArrayList<MemberDTO> ar = memberDAO.selectList(startRow, lastRow, kind, search);
 	
+	//pageing - totalCount
 	int totalCount = memberDAO.getTotalCount();
+	//totalPage
 	int totalPage = 0;
 	if(totalCount % perPage == 0){
 		totalPage = totalCount / perPage;
 	}else{
 		totalPage = totalCount / perPage+1;
 	}
-	
+	//totalBlock
 	int perBlock=5;
 	int totalBlock=0;
 	if(totalPage%perBlock==0){
@@ -42,13 +44,14 @@
 	}else{
 		totalBlock=totalPage/perBlock+1;
 	}
-	
+	//curPage를 이용해서 curBlock 구하기
 	int curBlock=0;
 	if(curPage%perBlock==0){
 		curBlock=curPage/perBlock;
 	}else{
 		curBlock=curPage/perBlock+1;
 	}
+	//curPage로 startNum, lastNum 구하기
 	int startNum=(curBlock-1)*perBlock+1;
 	int lastNum=curBlock*perBlock;
 	if(curBlock==totalBlock){
@@ -68,7 +71,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- bootstrap 끝-->
-
+<link href="../css/header.css" rel="stylesheet">
 <style type="text/css">
 *{
 margin: 0;
@@ -91,6 +94,7 @@ float: right;
 </style>
 </head>
 <body>
+<%@ include file="../temp/header.jsp"%>
 	<section id="main">
 		<h1>Member List</h1>
 		<article id="list">
@@ -131,6 +135,6 @@ float: right;
 
 		</article>
 	</section>
-
+<%@ include file="../temp/footer.jsp"%>
 </body>
 </html>

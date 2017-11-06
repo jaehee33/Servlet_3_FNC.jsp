@@ -9,9 +9,10 @@ import com.iu.util.DBConnector;
 
 public class MemberDAO {
 	
+	//getTotalCount
 	public int getTotalCount() throws Exception {
 		Connection con=DBConnector.getConnect();
-		String sql="select nvl(count(id),0) from member";
+		String sql="select nvl(count(id),0) from member"; //혹시 널값이 오지 않도록 nvl 쓰고 값 넣어주기
 		PreparedStatement pre=con.prepareStatement(sql);
 		ResultSet rs=pre.executeQuery();
 		rs.next();
@@ -19,7 +20,9 @@ public class MemberDAO {
 		DBConnector.disConnect(rs, pre, con);
 		return totalCount;
 	}
+	//===========================================================================
 	
+	//insert
 	public int insert(MemberDTO memberDTO) throws Exception{
 		Connection con=DBConnector.getConnect();
 		String sql="insert into member values(?,?,?,?,?,?,?)";
@@ -35,16 +38,18 @@ public class MemberDAO {
 		DBConnector.disConnect(pre, con);
 		return result;
 	}
+	//===========================================================================
 	
+	//selectList
 	public ArrayList<MemberDTO> selectList(int startRow, int lastRow, String kind, String search) throws Exception{
 		Connection con=DBConnector.getConnect();
-		String sql="select * from (select rownum R, N.* from (select * from member where "+kind+" like ? order by id desc) N ) where R between ? and ?";
+		String sql="select * from (select rownum R, N.* from (select * from member where "+kind+" like ? order by id asc) N ) where R between ? and ?";
 		PreparedStatement pre=con.prepareStatement(sql);
 		pre.setString(1, "%"+search+"%");
 		pre.setInt(2, startRow);
 		pre.setInt(3, lastRow);
 		ResultSet rs=pre.executeQuery();
-		ArrayList<MemberDTO> ar=new ArrayList<>();
+		ArrayList<MemberDTO> ar=new ArrayList<>(); // 여러개가 오니까 어레이리스트 만들고 와일문으로 돌리기
 		while(rs.next()) {
 			MemberDTO memberDTO=new MemberDTO();
 			memberDTO.setId(rs.getString("id"));
@@ -59,5 +64,5 @@ public class MemberDAO {
 		DBConnector.disConnect(rs, pre, con);
 		return ar;
 	}
-
+	//===========================================================================
 }
