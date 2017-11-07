@@ -98,7 +98,7 @@ height: 25px;
 		<h1>Member List</h1>
 		<article id="list">
 
-			<a class="btn btn-danger" href="./memberWriteForm.jsp">Writer</a>
+			<a class="btn btn-danger" href="./memberJoinForm.jsp">Join</a>
 			<table class="table table-striped">
 				<tr>
 					<td>ID</td>
