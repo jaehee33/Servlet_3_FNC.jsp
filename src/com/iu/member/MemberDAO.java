@@ -9,6 +9,23 @@ import com.iu.util.DBConnector;
 
 public class MemberDAO {
 	
+	//idCheck
+	public boolean idCheck(String id) throws Exception{
+		boolean check=true;
+		Connection con=DBConnector.getConnect();
+		String sql="select * from member where id=?";
+		PreparedStatement pre=con.prepareStatement(sql);
+		pre.setString(1, id);
+		ResultSet rs=pre.executeQuery();
+		if(rs.next()) {
+			check=false;
+		}
+		DBConnector.disConnect(rs, pre, con);
+		return check;
+		
+	}
+	//===========================================================================
+	
 	//getTotalCount
 	public int getTotalCount(String kind, String search) throws Exception {
 		Connection con=DBConnector.getConnect();

@@ -3,7 +3,7 @@
     
     <%
     String s=(String)request.getAttribute("message");
-    
+    String path=(String)request.getAttribute("path");
     
     %>
     
@@ -15,7 +15,7 @@
 
 <script type="text/javascript">
 alert('<%=s%>');
-location.href="../index_notice.jsp";
+location.href="<%= path%>";
 </script>
 
 </head>

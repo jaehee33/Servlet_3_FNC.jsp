@@ -18,22 +18,13 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
 window.onload=function(){
-	var btn=document.getElementById("btn");
+	var btn=document.getElementById("overlap");
 	btn.addEventListener("click", function() {
-		var n=document.getElementsByClassName("n");
-		var check=true;
-		for(var i=0; i<n.length; i++){
-			if(n[i].value==""){
-				alert("필수항목 입니다.")
-				check=false;
-				break;
-			}
-		}
-		if(check){
-			document.frm.submit();
-			}
+		var id=document.frm.id.value;
+		window.open("memberIdCheck.jsp?id="+id, "", "top=200, left=300, width=400, height=300");
 	});
 	
 }
@@ -41,10 +32,26 @@ window.onload=function(){
 <link href="../css/header.css" rel="stylesheet">
 <style type="text/css">
 .form-horizontal{
-width: 50%;
+width: 30%;
 margin: 0 auto;
 padding: 0;
 text-align: center;
+margin-top: 20px;
+}
+h1{
+width: 30%;
+margin: 0 auto;
+text-align: center;
+}
+.job{
+margin: 0 auto;
+float: left;
+}
+#id{
+display: inline-block;
+}
+#overlap{
+float: right;
 }
 
 </style>
@@ -53,6 +60,7 @@ text-align: center;
 <% // 회원가입폼 id,pw,name,email, phone, age,job %>
 <%@ include file="../temp/header.jsp"%>
 <section id="main">
+<h1>Member Join</h1>
 		<form name="frm" class="form-horizontal"
 			action="memberJoinProcess.jsp" method="post">
 			
@@ -61,13 +69,14 @@ text-align: center;
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="id"
 						placeholder="Enter id" name="id" class="n">
+						<input type="button" value="중복확인" class="btn btn-danger" id="overlap">
 				</div>
 			</div>
 			
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="password">PassWord</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="password"
+					<input type="password" class="form-control" id="password"
 						name="password" placeholder="Enter password" class="n">
 				</div>
 			</div>
@@ -105,8 +114,10 @@ text-align: center;
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="job">Job</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="job"
-						name="job" placeholder="Enter job" class="n">
+					Student <input type="radio" class="radio-inline" name="job"
+						class="n" value="S" checked="checked"> 
+					Teacher<input type="radio" class="radio-inline" name="job" 
+					class="n" value="T">
 				</div>
 			</div>
 			<div class="form-group">

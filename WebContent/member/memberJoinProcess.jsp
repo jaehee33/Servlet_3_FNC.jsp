@@ -1,3 +1,4 @@
+<%@page import="jdk.nashorn.internal.ir.RuntimeNode.Request"%>
 <%@page import="com.iu.member.MemberDAO"%>
 <%@page import="com.iu.member.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -18,12 +19,14 @@
     
     MemberDAO memberDAO = new MemberDAO();
     int result=memberDAO.insert(memberDTO);
-    String s="Fail";
+    String s="Join Fail";
     if(result>0){
-    	s="Success";
+    	s="Join Success";
     }
     request.setAttribute("message", s);
-    response.sendRedirect("../common/result.jsp");
+    request.setAttribute("path","../index_notice.jsp");
+    RequestDispatcher view= request.getRequestDispatcher("../common/result.jsp");
+    view.forward(request, response);
     %>
 <!DOCTYPE html>
 <html>
