@@ -20,7 +20,7 @@
 			<div class="hdsub">
 				<ul>
 					<li><a href="#">Login</a></li>
-					<li><a href="#">Join</a></li>
+					<li><a href="<%= request.getContextPath() %>/member/memberJoinForm.jsp">Join</a></li>
 					<li><a href="#">KO</a></li>
 					<li><a href="#">EN</a></li>
 					<li><a href="#">JP</a></li>
