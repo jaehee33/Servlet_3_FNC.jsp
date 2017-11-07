@@ -60,7 +60,7 @@ float: right;
 <% // 회원가입폼 id,pw,name,email, phone, age,job %>
 <%@ include file="../temp/header.jsp"%>
 <section id="main">
-<h1>Member Join</h1>
+<h1>Member Join Form</h1>
 		<form name="frm" class="form-horizontal"
 			action="memberJoinProcess.jsp" method="post">
 			
