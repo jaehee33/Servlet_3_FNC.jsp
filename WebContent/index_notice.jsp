@@ -1,3 +1,4 @@
+<%@page import="com.iu.member.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,6 +19,7 @@
 
 	<!--  main 시작 -->
 	<section id="main">
+
 		<div id="maincontents">
 			<article id="mimg">
 				<img src="./img/main/sf9.jpg">

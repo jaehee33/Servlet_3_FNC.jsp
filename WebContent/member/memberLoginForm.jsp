@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+   Cookie [] ar= request.getCookies();
+    String cId="";
+    for(int i=0; i<ar.length; i++){
+    	if(ar[i].getName().equals("id")){
+    		cId=ar[i].getValue();
+    		break;
+    	}
+    }
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +33,6 @@
 	width: 30%;
 	margin: 0 auto;
 	padding: 0;
-	text-align: center;
 	margin-top: 20px;
 }
 
@@ -49,10 +58,20 @@ h1 {
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="id">ID</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="id"
+					<input type="text" class="form-control" value="<%=cId %>" id="id"
 						placeholder="Enter id" name="id">
 				</div>
 			</div>
+			
+			<!-- checkBox -->
+	<div class="form-group">
+				<label class="control-label col-sm-2" for="Job">ID저장</label>
+				<div class="col-sm-10">
+					<input type="checkbox" value="save" class="checkbox-inline" name="save">
+				</div>
+			</div>
+			<!-- checkBox -->
+			
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="password">PassWord</label>
 				<div class="col-sm-10">
@@ -60,7 +79,6 @@ h1 {
 						name="password" placeholder="Enter password">
 				</div>
 			</div>
-
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="job">Job</label>
 				<div class="col-sm-10">
