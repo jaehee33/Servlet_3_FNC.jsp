@@ -5,11 +5,7 @@
     <%
     request.setCharacterEncoding("UTF-8");
     response.setCharacterEncoding("UTF-8");
-    
-	MemberDAO memberDAO = new MemberDAO();
-	ArrayList<MemberDTO> ar = memberDAO.selectList();
-	
-    
+
     %>
 <!DOCTYPE html>
 <html>
@@ -48,27 +44,29 @@ height: 25px;
 	<section id="main">
 		<h1>MyPage</h1>
 		<article id="list">
-			<a class="btn btn-danger" href="./memberJoinForm.jsp">Join</a>
+
 			<table class="table table-striped">
 				<tr>
 					<td>ID</td>
-					<td>PASSWORD</td>
 					<td>NAME</td>
 					<td>EMAIL</td>
 					<td>PHONE</td>
 					<td>AGE</td>
 					<td>JOB</td>
 				</tr>
-				<%for (MemberDTO memberDTO2 : ar) {%>
 				<tr>
 					<td><%=memberDTO.getId()%></td>
 					<td><a href="memberMyPage.jsp?id=<%=memberDTO.getId()%>"><%=memberDTO.getName()%></a></td>
 					<td><%=memberDTO.getEmail()%></td>
 					<td><%=memberDTO.getPhone()%></td>
 					<td><%=memberDTO.getAge()%></td>
+					<td><%=memberDTO.getJob()%></td>
 				</tr>
-				<%}%>
 			</table>
+			<div>
+				<a class="btn btn-danger" href="./memberDeleteForm.jsp">탈퇴</a> 
+				<a class="btn btn-warning" href="./memberUpdateForm.jsp">수정</a>
+			</div>
 		</article>
 	</section>
 	<%@ include file="../temp/footer.jsp"%>

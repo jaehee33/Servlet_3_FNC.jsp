@@ -5,9 +5,35 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import com.iu.notice.NoticeDTO;
 import com.iu.util.DBConnector;
 
 public class MemberDAO {
+	
+	//update
+	public int update(MemberDTO memberDTO) throws Exception{
+		Connection con=DBConnector.getConnect();
+		String sql="update member set password=?, name=?, email=?,age=?";
+		PreparedStatement pre=con.prepareStatement(sql);
+		pre.setString(1, memberDTO.getPassword());
+		pre.setString(2, memberDTO.getName());
+		pre.setString(3, memberDTO.getEmail());
+		pre.setInt(4, memberDTO.getAge());
+		int result=pre.executeUpdate();
+		DBConnector.disConnect(pre, con);
+		return result;
+	}
+	
+	//delete
+	public int delete(int num) throws Exception{
+		Connection con=DBConnector.getConnect();
+		String sql="delete member where id=?";
+		PreparedStatement pre=con.prepareStatement(sql);
+		int result=pre.executeUpdate();
+		DBConnector.disConnect(pre, con);
+		return result;
+		
+	}
 	
 	//selectOne
 	public MemberDTO selectOne(MemberDTO memberDTO) throws Exception{
