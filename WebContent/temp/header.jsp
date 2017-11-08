@@ -19,7 +19,7 @@
 			</nav>
 			<div class="hdsub">
 				<ul>
-					<li><a href="#">Login</a></li>
+					<li><a href="<%= request.getContextPath() %>/member/memberLoginForm.jsp">Login</a></li>
 					<li><a href="<%= request.getContextPath() %>/member/memberJoinForm.jsp">Join</a></li>
 					<li><a href="#">KO</a></li>
 					<li><a href="#">EN</a></li>

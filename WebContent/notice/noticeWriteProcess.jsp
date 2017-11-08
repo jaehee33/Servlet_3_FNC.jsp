@@ -17,6 +17,7 @@
 		s="Success";
 	}
 	request.setAttribute("message", s);
+	request.setAttribute("path", "../index_notice.jsp");
 	// 1. forward 방식
 	/* RequestDispatcher view = request.getRequestDispatcher("../common/result.jsp");
 	view.forward(request, response); */

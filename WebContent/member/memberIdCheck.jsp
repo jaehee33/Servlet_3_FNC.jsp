@@ -20,11 +20,25 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
 window.onload=function(){
 	var btn=document.getElementById("btn");
 	btn.addEventListener("click", function() {
 		window.opener.document.frm.id.value='<%=id%>';
+		window.opener.document.frm.idCheck.value="1";
 		window.self.close();
 	});
 	
@@ -39,7 +53,7 @@ window.onload=function(){
 	</form>
 	<h4><%=s %></h4>
 	<% if(check) {%>
-	<button id="btn">사용하기</button>
+	<button id="btn"  class="btn btn-link" >사용하기</button>
 	<%} %>
 </body>
 </html>

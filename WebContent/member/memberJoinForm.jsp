@@ -33,6 +33,7 @@ window.onload=function(){
 	var result2=true;
 	var check=document.getElementById("check");
 	check.addEventListener("click", function() {
+		var idCheck=document.frm.idCheck.value;
 		var n=document.getElementsByClassName("n");
 		for(var i=0; i<n.length; i++){
 			if(n[i].value==""){
@@ -42,15 +43,19 @@ window.onload=function(){
 		if(n[0].value !==n[1].value){
 			result2=false;
 		}
-		if(result && result2){
-			document.frm.submit();
+		if(result && result2 && idCheck=="1"){
+		document.frm.submit();
 		}else{
 			alert("모두 입력 하세요");
 		}
 		
 	});
 	
-	var password1=document.getElementById("password1");
+	var id=document.getElementById("id");
+	id.addEventListener("change", function() {
+		document.frm.idCheck.value="0";
+	});
+/* 	var password1=document.getElementById("password1");
 	var password2=document.getElementById("password2");
 	var pwResult=false;
 	password2.addEventListener("blur", function() {
@@ -64,7 +69,7 @@ window.onload=function(){
 				pwcheck2.style.color="red";
 			pwReasult=false;
 		}
-	});
+	}); */
 	
 	
 }
@@ -106,11 +111,11 @@ h1 {
 		<h1>Member Join Form</h1>
 		<form name="frm" class="form-horizontal"
 			action="memberJoinProcess.jsp" method="post">
-
+<input type="hidden" name="idCheck" value="0">
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="id">ID</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="id"
+					<input type="text" class="form-control" id="id" name="id"
 						placeholder="Enter id"> <input
 						type="button" value="중복확인" class="btn btn-default" id="overlap">
 				</div>
