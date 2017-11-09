@@ -12,8 +12,8 @@
 			</div>
 			<nav>
 				<ul>
-					<li><a href="<%= request.getContextPath() %>/notice/noticeList.jsp">Notice</a></li>
-					<li><a href="#">Artists</a></li>
+					<li><a href="<%= request.getContextPath() %>/notice/noticeList.jsp">NOTICE</a></li>
+					<li><a href="<%= request.getContextPath() %>/qna/qnaList.jsp">Q&A</a></li>
 					<li><a href="#">PR Center</a></li>
 					<li><a href="#">Audition</a></li>
 				</ul>
