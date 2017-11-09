@@ -13,22 +13,25 @@ public class MemberDAO {
 	//update
 	public int update(MemberDTO memberDTO) throws Exception{
 		Connection con=DBConnector.getConnect();
-		String sql="update member set password=?, name=?, email=?,age=?";
+		String sql="update member set password=?, name=?, email=?, phone=?, age=? where id=?";
 		PreparedStatement pre=con.prepareStatement(sql);
 		pre.setString(1, memberDTO.getPassword());
 		pre.setString(2, memberDTO.getName());
 		pre.setString(3, memberDTO.getEmail());
-		pre.setInt(4, memberDTO.getAge());
+		pre.setString(4, memberDTO.getPhone());
+		pre.setInt(5, memberDTO.getAge());
+		pre.setString(6, memberDTO.getId());
 		int result=pre.executeUpdate();
 		DBConnector.disConnect(pre, con);
 		return result;
 	}
 	
 	//delete
-	public int delete(int num) throws Exception{
+	public int delete(String id) throws Exception{
 		Connection con=DBConnector.getConnect();
 		String sql="delete member where id=?";
 		PreparedStatement pre=con.prepareStatement(sql);
+		pre.setString(1, id);
 		int result=pre.executeUpdate();
 		DBConnector.disConnect(pre, con);
 		return result;
@@ -78,11 +81,10 @@ public class MemberDAO {
 	//===========================================================================
 	
 	//getTotalCount
-	public int getTotalCount(String kind, String search) throws Exception {
+	public int getTotalCount() throws Exception {
 		Connection con=DBConnector.getConnect();
-		String sql="select nvl(count(id),0) from member where "+kind+" like ?"; //혹시 널값이 오지 않도록 nvl 쓰고 값 넣어주기
+		String sql="select nvl(count(id),0) from member"; //혹시 널값이 오지 않도록 nvl 쓰고 값 넣어주기
 		PreparedStatement pre=con.prepareStatement(sql);
-		pre.setString(1, "%"+search+"%");
 		ResultSet rs=pre.executeQuery();
 		rs.next();
 		int totalCount=rs.getInt(1);
@@ -110,15 +112,16 @@ public class MemberDAO {
 	//===========================================================================
 	
 	//selectList
-	public ArrayList<MemberDTO> selectList(int startRow, int lastRow, String kind, String search) throws Exception{
+	public ArrayList<MemberDTO> selectList(int startRow, int lastRow) throws Exception{
 		Connection con=DBConnector.getConnect();
-		String sql="select * from (select rownum R, N.* from (select * from member where "+kind+" like ? order by id asc) N ) where R between ? and ?";
+		String sql="select * from (select rownum R, N.* from (select * from member order by id asc) N ) where R between ? and ?";
 		PreparedStatement pre=con.prepareStatement(sql);
-		pre.setString(1, "%"+search+"%");
-		pre.setInt(2, startRow);
-		pre.setInt(3, lastRow);
+		pre.setInt(1, startRow);
+		pre.setInt(2, lastRow);
+		
 		ResultSet rs=pre.executeQuery();
 		ArrayList<MemberDTO> ar=new ArrayList<>(); // 여러개가 오니까 어레이리스트 만들고 와일문으로 돌리기
+		
 		while(rs.next()) {
 			MemberDTO memberDTO=new MemberDTO();
 			memberDTO.setId(rs.getString("id"));

@@ -48,7 +48,8 @@ window.onload=function(){
 				<label class="control-label col-sm-2" for="writer">Writer</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="writer"
-						placeholder="Enter writer" name="writer" class="n">
+						placeholder="Enter writer" name="writer" class="n"
+						readonly="readonly" value="<%=memberDTO.getId()%>">
 				</div>
 			</div>
 			<div class="form-group">

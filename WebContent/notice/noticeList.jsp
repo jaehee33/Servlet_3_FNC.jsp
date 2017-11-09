@@ -128,9 +128,9 @@ h1 {
 				%>
 
 			</table>
-		
+			<%if(memberDTO !=null && memberDTO.getJob().equals("T")){ %>
 			<a class="btn btn-danger" href="./noticeWriteForm.jsp">Writer</a>
-
+<%} %>
 			<!-- pageing -->
 			<div class="container">
 				<ul class="pagination">

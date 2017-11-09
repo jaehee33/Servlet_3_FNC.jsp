@@ -17,13 +17,13 @@
 		s="Success";
 	}
 	request.setAttribute("message", s);
-	request.setAttribute("path", "../index_notice.jsp");
+	request.setAttribute("path", "noticeList.jsp");
 	// 1. forward 방식
-	/* RequestDispatcher view = request.getRequestDispatcher("../common/result.jsp");
-	view.forward(request, response); */
+	RequestDispatcher view = request.getRequestDispatcher("../common/result.jsp");
+	view.forward(request, response);
 	
 	//2. redirect 방식
-	response.sendRedirect("../common/result.jsp");
+	/* response.sendRedirect("../common/result.jsp"); */
 	
 	
 	

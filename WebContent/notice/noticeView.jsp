@@ -30,11 +30,26 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <link href="../css/header.css" rel="stylesheet">
+<style type="text/css">
+
+
+#list {
+	width: 75%;
+	margin: 0 auto;
+	margin-top: 20px;
+
+}
+
+.btn {
+	float: right;
+}
+</style>
 </head>
 <body>
 	<%@ include file="../temp/header.jsp"%>
 	<section id="main">
-		<table class="table">
+		<article id="list">
+		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th>Title</th>
@@ -55,9 +70,14 @@
 				</tr>
 			</tbody>
 		</table>
+		<%if(memberDTO !=null && memberDTO.getId().equals(noticeDTO.getWriter())) {%>
 		<a  class="btn btn-info" href="./noticeDelete.jsp?num=<%=noticeDTO.getNum()%>">Delete</a>
+		<%} %>
+		<%if(memberDTO !=null && memberDTO.getId().equals(noticeDTO.getWriter())) {%>
 		<a  class="btn btn-info" href="./noticeUpdateForm.jsp?num=<%=noticeDTO.getNum()%>">Update</a>
+		<%} %>
 		<a  class="btn btn-info" href="./noticeList.jsp">List</a>
+		</article>
 	</section>
 	<%@ include file="../temp/footer.jsp"%>
 </body>
