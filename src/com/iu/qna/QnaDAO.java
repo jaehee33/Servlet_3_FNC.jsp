@@ -12,7 +12,7 @@ public class QnaDAO {
 	
 	public int relpy(QnaDTO qnaDTO, QnaDTO parent) throws Exception{
 		Connection con=DBConnector.getConnect();
-		String sql="update qna set step=setp+1 where ref=? and step>? ((select num from qna where num=?) ref order by ref desc) step asc)";
+		String sql="update qna set step=setp+1 where ref=? and step>?";
 		PreparedStatement pre=con.prepareStatement(sql);
 		pre.setInt(1, qnaDTO.getRef());
 		pre.setInt(2, qnaDTO.getStep());
