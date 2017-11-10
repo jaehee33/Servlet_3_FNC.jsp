@@ -90,7 +90,6 @@ h1 {
 	width: 75%;
 	margin: 0 auto;
 	margin-top: 20px;
-	text-align: center;
 }
 
 .btn {
@@ -117,7 +116,11 @@ h1 {
 <% for(QnaDTO qnaDTO : ar) {%>
 <tr>
 <td><%=qnaDTO.getNum()%></td>
-<td><a href="./qnaView.jsp?num=<%=qnaDTO.getNum()%>"><%=qnaDTO.getTitle()%></a></td>
+<%if(memberDTO !=null) {%>
+<td><a href="./qnaView.jsp?num=<%=qnaDTO.getNum()%>"><%for(int j=0; j<qnaDTO.getDepth();j++){%>--<%} %><%=qnaDTO.getTitle()%></a></td>
+<%}else{ %>
+<td><%for(int j=0; j<qnaDTO.getDepth();j++){%>--<%} %><%=qnaDTO.getTitle() %></td>
+<%} %>
 <td><%=qnaDTO.getContents()%></td>
 <td><%=qnaDTO.getWriter()%></td>
 <td><%=qnaDTO.getHit()%></td>
@@ -125,7 +128,7 @@ h1 {
 </tr>
 <%} %>
 </table>
-<%if(memberDTO !=null && memberDTO.getId().equals(memberDTO.getId())) {%>
+<%if(memberDTO !=null) {%>
 <a class="btn btn-danger" href="./qnaWriteForm.jsp">글쓰기</a>
 <%} %>
 

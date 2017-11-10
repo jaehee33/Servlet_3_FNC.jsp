@@ -71,10 +71,13 @@
 			</tbody>
 		</table>
 		<%if(memberDTO !=null && memberDTO.getId().equals(qnaDTO.getWriter())) {%>
-		<a  class="btn btn-info" href="./qnaDelete.jsp?num=<%=qnaDTO.getNum()%>">Delete</a>
+		<a  class="btn btn-info" href="./qnaDelete.jsp?num=<%=qnaDTO.getNum()%>">삭제</a>
 		<%} %>
 		<%if(memberDTO !=null && memberDTO.getId().equals(qnaDTO.getWriter())) {%>
-		<a  class="btn btn-info" href="./qnaUpdateForm.jsp?num=<%=qnaDTO.getNum()%>">Update</a>
+		<a  class="btn btn-info" href="./qnaUpdateForm.jsp?num=<%=qnaDTO.getNum()%>">수정</a>
+		<%} %>
+		<%if(memberDTO !=null) {%>
+		<a class="btn btn-info" href="./replyWriteForm.jsp?num=<%=qnaDTO.getNum()%>">답글</a>
 		<%} %>
 		<a  class="btn btn-info" href="./qnaList.jsp">List</a>
 		</article>

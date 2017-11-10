@@ -7,7 +7,29 @@ import java.util.ArrayList;
 
 import com.iu.util.DBConnector;
 
+
 public class QnaDAO {
+	
+	public int relpy(QnaDTO qnaDTO, QnaDTO parent) throws Exception{
+		Connection con=DBConnector.getConnect();
+		String sql="update qna set step=setp+1 where ref=? and step>? ((select num from qna where num=?) ref order by ref desc) step asc)";
+		PreparedStatement pre=con.prepareStatement(sql);
+		pre.setInt(1, qnaDTO.getRef());
+		pre.setInt(2, qnaDTO.getStep());
+		
+		String sql2="insert into qna values(qna_seq.nextval,?,?,?,0,sysdate,?,?,?)";
+		pre=con.prepareStatement(sql2);
+		pre.setString(1, qnaDTO.getTitle());
+		pre.setString(2, qnaDTO.getContents());
+		pre.setString(3, qnaDTO.getWriter());
+		pre.setInt(4, parent.getRef());
+		pre.setInt(5, parent.getStep()+1);
+		pre.setInt(6, parent.getDepth()+1);
+		int result=pre.executeUpdate();
+		DBConnector.disConnect(pre, con);
+		return result;
+
+	}
 	
 	public int getTotalCount(String kind, String search) throws Exception{
 		Connection con=DBConnector.getConnect();
@@ -56,7 +78,7 @@ public class QnaDAO {
 	
 	public int insert(QnaDTO qnaDTO) throws Exception{
 		Connection con=DBConnector.getConnect();
-		String sql="insert into qna values(qna_seq.nextval,?,?,?,0,sysdate)";
+		String sql="insert into qna values(qna_seq.nextval,?,?,?,0,sysdate, qna_seq.currval, 0, 0)";
 		PreparedStatement pre=con.prepareStatement(sql);
 		pre.setString(1, qnaDTO.getTitle());
 		pre.setString(2, qnaDTO.getContents());
@@ -81,6 +103,9 @@ public class QnaDAO {
 			qnaDTO.setWriter(rs.getString("writer"));
 			qnaDTO.setHit(rs.getInt("hit"));
 			qnaDTO.setReg_date(rs.getDate("reg_date"));
+			qnaDTO.setRef(rs.getInt("ref"));
+			qnaDTO.setStep(rs.getInt("step"));
+			qnaDTO.setDepth(rs.getInt("depth"));
 		}
 		DBConnector.disConnect(rs, pre, con);
 		return qnaDTO;
@@ -89,7 +114,7 @@ public class QnaDAO {
 	
 	public ArrayList<QnaDTO> selectList(int startRow, int lastRow, String kind, String search ) throws Exception{
 		Connection con=DBConnector.getConnect();
-		String sql="select * from (select rownum R, N.* from (select * from qna where "+kind+" like ? order by num desc) N) where R between ? and ?";
+		String sql="select * from (select rownum R, N.* from (select * from qna where "+kind+" like ? order by num desc) N) where R between ? and ? order by ref desc , step asc";
 		PreparedStatement pre=con.prepareStatement(sql);
 		pre.setString(1, "%"+search+"%");
 		pre.setInt(2, startRow);
@@ -104,6 +129,9 @@ public class QnaDAO {
 			qnaDTO.setWriter(rs.getString("writer"));
 			qnaDTO.setHit(rs.getInt("hit"));
 			qnaDTO.setReg_date(rs.getDate("reg_date"));
+			qnaDTO.setRef(rs.getInt("ref"));
+			qnaDTO.setStep(rs.getInt("step"));
+			qnaDTO.setDepth(rs.getInt("depth"));
 			ar.add(qnaDTO);
 		}
 			DBConnector.disConnect(rs, pre, con);
