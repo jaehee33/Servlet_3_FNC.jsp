@@ -56,7 +56,7 @@ public class QnaDAO {
 	
 	public int insert(QnaDTO qnaDTO) throws Exception{
 		Connection con=DBConnector.getConnect();
-		String sql="insert into qna values(qna_seq,?,?,?,0,sysdate)";
+		String sql="insert into qna values(qna_seq.nextval,?,?,?,0,sysdate)";
 		PreparedStatement pre=con.prepareStatement(sql);
 		pre.setString(1, qnaDTO.getTitle());
 		pre.setString(2, qnaDTO.getContents());

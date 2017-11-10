@@ -7,6 +7,13 @@
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	
+	String kind = request.getParameter("kind");
+	String search= request.getParameter("search");
+	if(kind==null){
+		kind="title";
+	}if(search==null){
+		search="";
+	}
 	//1. 데이터정리
 	int curPage=1;
 	try{
@@ -17,14 +24,16 @@
 	int perBlock=5;
 	
 	//2. db조회
-	int startRow= (curPage-1) * perPage+1;
-	int lastRow= perPage * curPage;
+	int startRow = (curPage-1) * perPage+1;
+	int lastRow = perPage * curPage;
 	//3. 전체 글의 갯수
 	QnaDAO qnaDAO = new QnaDAO();
-	int totalCount=qnaDAO.getTotalCount(kind, search);
+    ArrayList<QnaDTO> ar = qnaDAO.selectList(startRow, lastRow, kind, search);
+	int totalCount = qnaDAO.getTotalCount(kind, search);
+
 	// 4. 전체페이지수 구하기
 	int totalPage=0;
-	if(totalCount%perPage==0){
+	if(totalCount % perPage == 0){
 		totalPage=totalCount/perPage;
 	}else{
 		totalPage=totalCount/perPage+1;
@@ -45,15 +54,11 @@
 	}
 	// 7. startNum, lastNum 구하기
 	int startNum=(curBlock-1) * perBlock+1;
-	int lastNum=perBlock * curBlock;
+	int lastNum=curBlock * perBlock;
 	
-	if(totalBlock==curBlock){
+	if(curBlock==totalBlock){
 		lastNum=totalPage;
 	}
-
-    ArrayList<QnaDTO> ar = new ArrayList<>();
-    
-    
     %>
 <!DOCTYPE html>
 <html>
@@ -125,7 +130,29 @@ h1 {
 <%} %>
 
 <!-- pageing -->
+<div class="container">
+<ul class="pagination">
+<%if(curBlock>1) {%>
+<li><a href="qnaList.jsp?num=<%=startNum-1%>&kind=<%=kind%>&search=<%=search %>">[이전]</a></li>
+<%} %>
+<% for(int i=startNum; i<=lastNum; i++) {%>
+<li><a href="qnaList.jsp?curPage=<%=i %>&kind=<%=kind%>&search=<%=search %>"><%=i %></a></li>
+<%} %>
+<li><a href="qnaList.jsp?curPage=<%=lastNum+1 %>&kind=<%=kind %>&search<%=search %>">[다음]</a></li>
+</ul>
+</div>
 
+<!-- 제목, 작성자, 내용 서치 -->
+<form action="qnaList.jsp">
+<input type="hidden" value="curPage">
+<select name="kind">
+<option value="title">제목</option>
+<option value="contents">내용</option>
+<option value="writer">작성자</option>
+</select>
+<input type="text" name="search">
+<input type="submit" value="search">
+</form>
 </article>
 </section>
 <%@ include file="../temp/footer.jsp" %>
