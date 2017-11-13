@@ -1,3 +1,4 @@
+<%@page import="java.util.Enumeration"%>
 <%@page import="com.iu.files.FileDAO"%>
 <%@page import="com.iu.files.FilesDTO"%>
 <%@page import="java.io.File"%>
@@ -29,16 +30,20 @@
 
 	NoticeDAO noticeDAO=new NoticeDAO();
 	int result=noticeDAO.getNum();
-			
 	noticeDTO.setNum(result);
-	
 	result=noticeDAO.insert(noticeDTO);
-	FilesDTO filesDTO = new FilesDTO();
-	filesDTO.setoName(oName);
-	filesDTO.setfName(fName);
-	filesDTO.setNum(result);
-	FileDAO fileDAO=new FileDAO();
-	result=fileDAO.insert(filesDTO);
+	
+//파라미터이름 정확히 모를때 사용
+	Enumeration e = multi.getFileNames();
+	FileDAO fileDAO = new FileDAO();
+	while(e.hasMoreElements()){
+		String obj =(String)e.nextElement();
+		FilesDTO fileDTO = new FilesDTO();
+		fileDTO.setoName(multi.getOriginalFileName(obj));
+		fileDTO.setfName(multi.getFilesystemName(obj));
+		fileDTO.setNum(result);
+		fileDAO.insert(fileDTO);
+	}
 	
 	String s="Fail";
 	if(result>0){

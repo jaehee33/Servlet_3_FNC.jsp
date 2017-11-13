@@ -9,6 +9,16 @@ import com.iu.util.DBConnector;
 
 public class FileDAO {
 	
+	public int delete(int num)throws Exception{
+		Connection con=DBConnector.getConnect();
+		String sql="delete files where num=? ";
+		PreparedStatement pre=con.prepareStatement(sql);
+		pre.setInt(1, num);
+		int result=pre.executeUpdate();
+		DBConnector.disConnect(pre, con);
+		return result;
+	}
+	
 	public ArrayList<FilesDTO> selectList(int num) throws Exception{
 		Connection con=DBConnector.getConnect();
 		String sql="select * from files where num=?";

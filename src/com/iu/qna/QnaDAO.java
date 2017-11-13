@@ -10,6 +10,17 @@ import com.iu.util.DBConnector;
 
 public class QnaDAO {
 	
+	public int getNum() throws Exception{
+		Connection con=DBConnector.getConnect();
+		String sql="select qna_seq.nextval from dual";
+		PreparedStatement pre=con.prepareStatement(sql);
+		ResultSet rs=pre.executeQuery();
+		rs.next();
+		int result=rs.getInt(1);
+		DBConnector.disConnect(rs, pre, con);
+		return result;			
+	}
+	
 	public int relpy(QnaDTO qnaDTO, QnaDTO parent) throws Exception{
 		Connection con=DBConnector.getConnect();
 		String sql="update qna set step=setp+1 where ref=? and step>?";
@@ -78,11 +89,13 @@ public class QnaDAO {
 	
 	public int insert(QnaDTO qnaDTO) throws Exception{
 		Connection con=DBConnector.getConnect();
-		String sql="insert into qna values(qna_seq.nextval,?,?,?,0,sysdate, qna_seq.currval, 0, 0)";
+		String sql="insert into qna values(?,?,?,?,0,sysdate,?, 0, 0)";
 		PreparedStatement pre=con.prepareStatement(sql);
-		pre.setString(1, qnaDTO.getTitle());
-		pre.setString(2, qnaDTO.getContents());
-		pre.setString(3, qnaDTO.getWriter());
+		pre.setInt(1, qnaDTO.getNum());
+		pre.setString(2, qnaDTO.getTitle());
+		pre.setString(3, qnaDTO.getContents());
+		pre.setString(4, qnaDTO.getWriter());
+		pre.setInt(5, qnaDTO.getNum());
 		int result=pre.executeUpdate();
 		DBConnector.disConnect(pre, con);
 		return result;

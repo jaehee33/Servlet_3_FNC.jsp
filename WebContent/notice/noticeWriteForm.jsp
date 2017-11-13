@@ -20,7 +20,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
 <script type="text/javascript">
-
 window.onload=function(){
 	CKEDITOR.replace('contents');
 	var btn=document.getElementById("btn");
@@ -87,7 +86,7 @@ h1 {
 			</div>
 			<!--  첨부파일 -->
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="contents">Contents</label>
+				<label class="control-label col-sm-2" for="contents">File</label>
 				<div class="col-sm-10">
 					<input type="file" name="file" class="form-control" > 
 				</div>

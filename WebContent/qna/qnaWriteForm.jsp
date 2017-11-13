@@ -21,8 +21,10 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
 <script type="text/javascript">
 window.onload=function(){
+	CKEDITOR.replace('contents');
 	var btn=document.getElementById("btn");
 	btn.addEventListener("click", function() {
 		var n=document.getElementsByClassName("n");
@@ -62,7 +64,7 @@ h1 {
 	<%@ include file="../temp/header.jsp"%>
 	<section id="main">
 	<h1>Q&A Write Form</h1>
-		<form id="list" name="frm" class="form-horizontal" action="qnaWriteProcess.jsp" method="post">
+		<form id="list" name="frm" class="form-horizontal" action="qnaWriteProcess.jsp" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="writer">작성자</label>
 				<div class="col-sm-10">
@@ -85,6 +87,16 @@ h1 {
 					name="contents" class="n"></textarea> 
 				</div>
 			</div>
+			<!--  첨부파일 -->
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="contents">File</label>
+				<div class="col-sm-10">
+					<input type="file" name="file" class="form-control">
+					<input type="file" name="file2" class="form-control">
+				</div>
+			</div>
+
+
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
 					<button class="btn btn-danger">올리기</button>

@@ -1,3 +1,6 @@
+<%@page import="com.iu.files.FilesDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.iu.files.FileDAO"%>
 <%@page import="com.iu.qna.QnaDTO"%>
 <%@page import="com.iu.qna.QnaDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -10,6 +13,8 @@
 	QnaDAO qnaDAO = new QnaDAO();
 	int result=qnaDAO.hitUpdate(num);
 	QnaDTO qnaDTO= qnaDAO.selectOne(num);
+	FileDAO fileDAO=new FileDAO();
+	ArrayList<FilesDTO> ar=fileDAO.selectList(num);
 %>
 <!DOCTYPE html>
 <html>
@@ -70,6 +75,14 @@
 				</tr>
 			</tbody>
 		</table>
+		<div>
+		<% for(int i=0; i<ar.size(); i++) {%>
+		<a href="../upload/<%=ar.get(i).getfName() %>"><%=ar.get(i).getoName() %></a>
+		<a href="../upload/<%=ar.get(i).getfName() %>"><%=ar.get(i).getoName() %></a>
+			<%} %>
+		</div>
+		
+		
 		<%if(memberDTO !=null && memberDTO.getId().equals(qnaDTO.getWriter())) {%>
 		<a  class="btn btn-info" href="./qnaDelete.jsp?num=<%=qnaDTO.getNum()%>">삭제</a>
 		<%} %>

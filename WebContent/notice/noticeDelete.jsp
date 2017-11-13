@@ -1,3 +1,8 @@
+
+<%@page import="com.iu.files.FilesDTO"%>
+<%@page import="java.io.File"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.iu.files.FileDAO"%>
 <%@page import="com.iu.notice.NoticeDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -9,6 +14,15 @@
 	
 	NoticeDAO noticeDAO=new NoticeDAO();
 	int result=noticeDAO.delete(num);
+	
+	FileDAO fileDAO=new FileDAO();
+	ArrayList<FilesDTO> ar = fileDAO.selectList(num);
+	String save=session.getServletContext().getRealPath("upload");
+	for(FilesDTO f: ar){
+		File file=new File(save, f.getfName());
+		file.delete();
+		
+	}
 	
 	String s="File";
 	if(result>0){
