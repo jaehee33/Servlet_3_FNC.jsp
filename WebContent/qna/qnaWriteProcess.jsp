@@ -10,6 +10,7 @@
 	qnaDTO.setWriter(request.getParameter("writer"));
 	qnaDTO.setTitle(request.getParameter("title"));
 	qnaDTO.setContents(request.getParameter("contents"));
+	String file = request.getParameter("file");
 	QnaDAO qnaDAO = new QnaDAO();
 	int result=qnaDAO.insert(qnaDTO);
 	

@@ -47,6 +47,7 @@
 </head>
 <body>
 	<%@ include file="../temp/header.jsp"%>
+	<a href="../img/common/logo.png">logo</a>
 	<section id="main">
 		<article id="list">
 		<table class="table table-hover">

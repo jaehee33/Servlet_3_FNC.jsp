@@ -28,7 +28,12 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<script src="https://cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
+<script type="text/javascript">
+window.onload=function(){
+	CKEDITOR.replace('contents');
+}
+</script>
 <link href="../css/header.css" rel="stylesheet">
 </head>
 <body>
