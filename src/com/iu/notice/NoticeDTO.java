@@ -1,6 +1,7 @@
 package com.iu.notice;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class NoticeDTO {
 	
@@ -10,6 +11,7 @@ public class NoticeDTO {
 	private String contents;
 	private Date reg_date;
 	private int hit;
+	
 	public int getNum() {
 		return num;
 	}

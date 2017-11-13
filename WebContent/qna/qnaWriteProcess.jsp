@@ -1,3 +1,4 @@
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="com.iu.qna.QnaDAO"%>
 <%@page import="com.iu.qna.QnaDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -5,6 +6,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
+
 	
 	QnaDTO qnaDTO = new QnaDTO();
 	qnaDTO.setWriter(request.getParameter("writer"));

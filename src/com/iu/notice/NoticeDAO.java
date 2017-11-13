@@ -8,6 +8,18 @@ import java.util.ArrayList;
 import com.iu.util.DBConnector;
 
 public class NoticeDAO {
+	
+	public int getNum() throws Exception{
+		Connection con=DBConnector.getConnect();
+		String sql="select board_seq.nextval from dual";
+		PreparedStatement pre=con.prepareStatement(sql);
+		ResultSet rs=pre.executeQuery();
+		rs.next();
+		int result=rs.getInt(1);
+		DBConnector.disConnect(rs, pre, con);
+		return result;
+	
+	}
 
 	//getTotalCount
 	public int getTotalCount(String kind, String search) throws Exception{
@@ -76,11 +88,12 @@ public class NoticeDAO {
 
 	public int insert(NoticeDTO noticeDTO) throws Exception{
 		Connection con=DBConnector.getConnect();
-		String sql="insert into notice values(board_seq.nextval,?,?,?,sysdate,0)";
+		String sql="insert into notice values(?,?,?,?,sysdate,0)";
 		PreparedStatement pre=con.prepareStatement(sql);
-		pre.setString(1, noticeDTO.getTitle());
-		pre.setString(2, noticeDTO.getWriter());
-		pre.setString(3, noticeDTO.getContents());
+		pre.setInt(1, noticeDTO.getNum());
+		pre.setString(2, noticeDTO.getTitle());
+		pre.setString(3, noticeDTO.getWriter());
+		pre.setString(4, noticeDTO.getContents());
 
 		int result=pre.executeUpdate();
 		DBConnector.disConnect(pre, con);

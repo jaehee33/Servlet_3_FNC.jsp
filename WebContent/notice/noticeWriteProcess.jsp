@@ -1,3 +1,8 @@
+<%@page import="com.iu.files.FileDAO"%>
+<%@page import="com.iu.files.FilesDTO"%>
+<%@page import="java.io.File"%>
+<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="com.iu.notice.NoticeDAO"%>
 <%@page import="com.iu.notice.NoticeDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -6,12 +11,35 @@
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	
+	int maxSize=1024*1024*10; //파일크기 10메가 이하에서 받겠다.
+	String save=session.getServletContext().getRealPath("upload"); //파일을 어디에 저장할거냐
+	File f=new File(save);
+	if(!f.exists()){
+		f.mkdirs();
+	}
+	MultipartRequest multi = new MultipartRequest(request, save, maxSize, "UTF-8", new DefaultFileRenamePolicy());
+	
 	NoticeDTO noticeDTO=new NoticeDTO();
-	noticeDTO.setWriter(request.getParameter("writer"));
-	noticeDTO.setTitle(request.getParameter("title"));
-	noticeDTO.setContents(request.getParameter("contents"));
+	noticeDTO.setWriter(multi.getParameter("writer"));
+	noticeDTO.setTitle(multi.getParameter("title"));
+	noticeDTO.setContents(multi.getParameter("contents"));	
+	
+	String oName=multi.getOriginalFileName("file");
+	String fName=multi.getFilesystemName("file");
+
 	NoticeDAO noticeDAO=new NoticeDAO();
-	int result=noticeDAO.insert(noticeDTO);
+	int result=noticeDAO.getNum();
+			
+	noticeDTO.setNum(result);
+	
+	result=noticeDAO.insert(noticeDTO);
+	FilesDTO filesDTO = new FilesDTO();
+	filesDTO.setoName(oName);
+	filesDTO.setfName(fName);
+	filesDTO.setNum(result);
+	FileDAO fileDAO=new FileDAO();
+	result=fileDAO.insert(filesDTO);
+	
 	String s="Fail";
 	if(result>0){
 		s="Success";

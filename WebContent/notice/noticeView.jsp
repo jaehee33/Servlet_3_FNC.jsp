@@ -1,3 +1,6 @@
+<%@page import="com.iu.files.FilesDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.iu.files.FileDAO"%>
 <%@page import="com.iu.notice.NoticeDTO"%>
 <%@page import="com.iu.notice.NoticeDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -10,6 +13,10 @@
 	NoticeDAO noticeDAO = new NoticeDAO();
 	int result=noticeDAO.hitUpdate(num);
 	NoticeDTO noticeDTO = noticeDAO.selectOne(num);
+	FileDAO fileDAO = new FileDAO();
+	ArrayList<FilesDTO> ar=fileDAO.selectList(num);
+			
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -47,7 +54,6 @@
 </head>
 <body>
 	<%@ include file="../temp/header.jsp"%>
-	<a href="../img/common/logo.png">logo</a>
 	<section id="main">
 		<article id="list">
 		<table class="table table-hover">
@@ -71,6 +77,16 @@
 				</tr>
 			</tbody>
 		</table>
+		<div>
+		<% for(int i=0; i<ar.size(); i++) {%>
+		<p>
+		<a href="../upload/<%=ar.get(i).getfName() %>"><%=ar.get(i).getoName() %></a>
+		</p>
+		<%} %>
+		</div>
+		
+		
+		
 		<%if(memberDTO !=null && memberDTO.getId().equals(noticeDTO.getWriter())) {%>
 		<a  class="btn btn-info" href="./noticeDelete.jsp?num=<%=noticeDTO.getNum()%>">Delete</a>
 		<%} %>
